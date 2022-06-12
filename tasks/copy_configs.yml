@@ -1,0 +1,23 @@
+# TODO make sure this linking is working correctly.
+- name: Delete .bashrc
+  ansible.builtin.file:
+    path: "/home/{{ main_user }}/.bashrc"
+    state: absent
+
+- name: Hardlink .bashrc
+  become: yes
+  become_user: "{{ main_user }}"
+  file:
+    src: $PWD/files/conf_files/.bashrc
+    dest: "/home/{{ main_user }}/.bashrc"
+    state: hard
+
+- name: Hardlink .zshrc
+  become: yes
+  become_user: "{{ main_user }}"
+  file:
+    src: $PWD/files/conf_files/.zshrc
+    dest: "/home/{{ main_user }}/.zshrc"
+    state: hard
+    force: yes
+

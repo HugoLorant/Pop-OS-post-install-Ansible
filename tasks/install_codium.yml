@@ -1,0 +1,30 @@
+- name: get url vscodium
+  get_url:
+    url: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+    dest: /home/{{ main_user }}/Desktop
+
+- name: Add Apt signing key for vs codium
+  become: yes
+  become_user: "{{ root_user }}"
+  ansible.builtin.apt_key:
+    file: /home/{{ main_user }}/Desktop/pub.gpg
+
+- name: Add Apt repo vscodium
+  become: yes
+  become_user: "{{ root_user }}"
+  ansible.builtin.apt_repository:
+    repo: deb https://download.vscodium.com/debs vscodium main
+    update_cache: yes 
+    
+- name: Remove BGP key
+  ansible.builtin.file:
+    path: /home/{{ main_user }}/Desktop/pub.gpg
+    state: absent
+
+- name: Install codium package
+  become: yes
+  become_user: "{{ root_user }}"
+  package:
+    name:
+      - codium
+    state: latest

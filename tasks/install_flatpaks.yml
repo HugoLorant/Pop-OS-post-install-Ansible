@@ -1,0 +1,23 @@
+- name: Add the flathub flatpak repository remote to the user installation
+  become: yes
+  become_user: "{{ main_user }}"
+  community.general.flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+    method: user
+
+- name: Install user flatpaks
+  become: yes
+  become_user: "{{ main_user }}"
+  community.general.flatpak:
+    name:
+      - org.qbittorrent.qBittorrent
+      - com.discordapp.Discord
+      - fr.romainvigier.MetadataCleaner
+      - org.libreoffice.LibreOffice
+     # - org.onlyoffice.desktopeditors
+      - org.mozilla.firefox
+      - org.kde.krita
+    state: present
+    method: user

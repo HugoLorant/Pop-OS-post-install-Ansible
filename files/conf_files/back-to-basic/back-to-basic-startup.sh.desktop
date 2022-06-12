@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/USER/.config/conky/back-to-basic/startup/back-to-basic-startup.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_GB]=conky
+Name=conky
+Comment[en_GB]=start conky on boot
+Comment=start conky on boot

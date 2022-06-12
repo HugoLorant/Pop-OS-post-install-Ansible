@@ -1,0 +1,49 @@
+- name: Make config fish dir
+  file:
+    path: "/home/{{ main_user }}/.config/fish/functions"
+    state: directory
+
+- name: Hardlink fish
+  become: yes
+  become_user: "{{ root_user }}"
+  file:
+    src: $PWD/files/fish/fish/fish_variables
+    dest: "/home/{{ main_user }}/.config/fish/fish_variables"
+    state: hard
+    force: yes
+
+- name: Hardlink fish
+  become: yes
+  become_user: "{{ root_user }}"
+  file:
+    src: $PWD/files/fish/fish/functions/fish_prompt.fish
+    dest: "/home/{{ main_user }}/.config/fish/functions/fish_prompt.fish"
+    state: hard
+    force: yes
+
+- name: Add fish PPA
+  become: yes
+  become_user: "{{ root_user }}"
+  apt_repository:
+    repo: ppa:fish-shell/release-3
+    state: present
+
+- name: Install fish
+  become: yes
+  become_user: "{{ root_user }}"
+  package:
+    name:
+      - fish
+    state: latest
+
+#- name: Change Default Shell to fish
+#  become: yes
+#  become_user: "{{ root_user }}"
+#  shell: chsh -s /usr/bin/fish
+
+- name: Change user shell
+  become: yes
+  become_user: "{{ root_user }}"
+  ansible.builtin.user:
+    name: "{{ main_user }}"
+    shell: /usr/bin/fish

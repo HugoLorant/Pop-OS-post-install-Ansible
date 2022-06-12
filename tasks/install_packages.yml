@@ -1,0 +1,45 @@
+- name: Install packages
+  become: yes
+  become_user: "{{ root_user }}"
+  package:
+    name:
+      - apt-transport-https
+      - bat
+      - btop
+      - build-essential
+      - ca-certificates
+      - cmake
+      - cmatrix
+      - conky-all
+      - curl
+      - flatpak
+      - geany
+      - git
+      - gnome-tweaks
+      - gparted
+      - htop
+      - neofetch
+      - nodejs
+      - npm
+      - python3
+      - python3-venv
+      - rsync
+      - gnome-screenshot
+      - stacer
+      - steam
+      - software-properties-common
+      - timeshift
+      - vim
+      - virtualbox-qt
+      - vlc
+    state: latest
+
+
+- name: Remove packages
+  become: yes
+  become_user: "{{ root_user }}"
+  package:
+    name:
+      - libreoffice*
+      - firefox*
+    state: absent

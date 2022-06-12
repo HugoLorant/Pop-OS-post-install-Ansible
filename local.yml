@@ -1,0 +1,38 @@
+- hosts: localhost
+  connection: local
+  vars_prompt:
+    - name: "shell_var"
+      prompt: "What additional shell do you want install and use (fish/zsh/none)?"
+      default: "none"
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+    main_user: "{{ main_user }}"
+    root_user: root
+  become: yes
+  become_user: "{{ main_user }}"
+  pre_tasks:
+    - name: update repositories
+      become: yes
+      become_user: root
+      apt: 
+        update_cache: yes
+      changed_when: False
+  collections:
+    - community.general.flatpak
+
+  tasks:
+    - import_tasks: ./tasks/install_setup_packages.yml
+    #- import_tasks: ./tasks/config_standard_directories.yml
+    #- import_tasks: ./tasks/install_ansible_collections.yml
+    #- import_tasks: ./tasks/install_packages.yml
+    #- import_tasks: ./tasks/install_flatpaks.yml
+    #- import_tasks: ./tasks/copy_configs.yml
+    #- import_tasks: ./tasks/install_codium.yml
+    #- import_tasks: ./tasks/install_terraform.yml
+    #- import_tasks: ./tasks/config_conky.yml
+    - import_tasks: ./tasks/config_icons.yml
+
+    - include_tasks: ./tasks/install_fish.yml
+      when: shell_var == "fish"
+    - include_tasks: ./tasks/install_oh_my_zsh.yml
+      when: shell_var == "zsh"

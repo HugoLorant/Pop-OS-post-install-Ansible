@@ -1,0 +1,31 @@
+- name: Create autostart directory
+  become: yes
+  become_user: "{{ main_user }}"
+  ansible.builtin.file:
+    path: /home/{{ main_user }}/.config/autostart
+    state: directory
+    mode: '775'
+
+- name: Create font directory
+  become: yes
+  become_user: "{{ main_user }}"
+  ansible.builtin.file:
+    path: /home/{{ main_user }}/.local/share/fonts
+    state: directory
+    mode: '775'
+
+- name: Create .icons directory
+  become: yes
+  become_user: "{{ main_user }}"
+  ansible.builtin.file:
+    path: /home/{{ main_user }}/.icons
+    state: directory
+    mode: '775'
+
+- name: Create .themes directory
+  become: yes
+  become_user: "{{ main_user }}"
+  ansible.builtin.file:
+    path: /home/{{ main_user }}/.themes
+    state: directory
+    mode: '775'

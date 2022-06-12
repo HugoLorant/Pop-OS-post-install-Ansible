@@ -1,0 +1,40 @@
+- name: Create a conky directory
+  become: yes
+  become_user: "{{ main_user }}"
+  ansible.builtin.file:
+    path: /home/{{ main_user }}/.config/conky
+    state: directory
+    mode: '775'
+
+- name: Copy conky config directory
+  ansible.builtin.copy:
+    src: files/conf_files/back-to-basic
+    
+    dest: /home/{{ main_user }}/.config/conky
+
+- name: Copy conky fonts
+  ansible.builtin.copy:
+    src: /home/{{ main_user }}/.config/conky/back-to-basic/ConkySymbols.ttf
+    dest: /home/{{ main_user }}/.local/share/fonts
+
+- name: Replace user name in conky conf
+  ansible.builtin.replace:
+    path: /home/{{ main_user }}/.config/conky/back-to-basic/startup/back-to-basic-startup.sh
+    regexp: 'USER'
+    replace: '{{ main_user }}'
+
+- name: Give executable right to back-to-basic-startup.sh
+  ansible.builtin.file:
+    path: //home/{{ main_user }}/.config/conky/back-to-basic/startup/back-to-basic-startup.sh
+    mode: '755'
+
+- name: Copy autostart conf
+  ansible.builtin.copy:
+    src: /home/{{ main_user }}/.config/conky/back-to-basic/back-to-basic-startup.sh.desktop
+    dest: /home/{{ main_user }}/.config/autostart
+
+- name: Replace user name in conky autostart conf
+  ansible.builtin.replace:
+    path: /home/{{ main_user }}/.config/autostart/back-to-basic-startup.sh.desktop
+    regexp: 'USER'
+    replace: '{{ main_user }}'
