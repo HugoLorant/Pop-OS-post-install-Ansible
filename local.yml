@@ -26,11 +26,13 @@
     #- import_tasks: ./tasks/install_ansible_collections.yml
     #- import_tasks: ./tasks/install_packages.yml
     #- import_tasks: ./tasks/install_flatpaks.yml
+    - import_tasks: ./tasks/install_gnome_extensions.yml
     #- import_tasks: ./tasks/copy_configs.yml
     #- import_tasks: ./tasks/install_codium.yml
     #- import_tasks: ./tasks/install_terraform.yml
     #- import_tasks: ./tasks/config_conky.yml
-    - import_tasks: ./tasks/config_icons.yml
+    #- import_tasks: ./tasks/config_icons.yml
+    - import_tasks: ./tasks/config_shell.yml
 
     - include_tasks: ./tasks/install_fish.yml
       when: shell_var == "fish"

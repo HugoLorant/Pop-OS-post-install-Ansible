@@ -14,10 +14,12 @@
       - curl
       - flatpak
       - geany
+      - gettext # For make
       - git
       - gnome-tweaks
       - gparted
       - htop
+      - make
       - neofetch
       - nodejs
       - npm
