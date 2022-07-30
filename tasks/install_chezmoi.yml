@@ -1,7 +1,8 @@
 - name: Install chezmoi
   shell:
+    chdir: /
     cmd: sh -c "$(curl -fsLS https://chezmoi.io/get)"
 
 - name: Sync chezmoi dotfiles
   shell:
-    cmd: /home/{{ main_user }}/bin/chezmoi init --apply https://github.com/DrPulse/dotfiles.git
+    cmd: /bin/chezmoi init --apply https://github.com/DrPulse/dotfiles.git
