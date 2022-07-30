@@ -30,8 +30,8 @@
         update_cache: yes
       changed_when: False
     - import_tasks: ./tasks/install_nala.yml
-    - import_tasks: ./tasks/install_chezmoi.yml
     - import_tasks: ./tasks/config_terminal.yml
+    - import_tasks: ./tasks/install_chezmoi.yml
 
   collections:
     - community.general.flatpak
@@ -44,7 +44,7 @@
     - import_tasks: ./tasks/install_flatpaks.yml
     - import_tasks: ./tasks/install_codium.yml
     - import_tasks: ./tasks/install_terraform.yml 
-    - import_tasks: ./tasks/install_gnome_extensions.yml
+    #- import_tasks: ./tasks/install_gnome_extensions.yml    # let this task commented
     - import_tasks: ./tasks/copy_configs.yml
     - import_tasks: ./tasks/config_conky.yml
     - import_tasks: ./tasks/config_icons.yml
