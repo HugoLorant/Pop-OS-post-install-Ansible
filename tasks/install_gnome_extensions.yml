@@ -3,14 +3,16 @@
   become_user: "{{ root_user }}"
   package:
     name:
+      - gnome-shell
       - gnome-shell-extensions
 
-- name: Enable Gnome Shell extension 
-  command: gnome-extensions enable apps-menu@gnome-shell-extensions.gcampax.github.com
+#- name: Enable Gnome Shell extension 
+#  command: gnome-extensions enable apps-menu@gnome-shell-extensions.gcampax.github.com
 
 - name: Enable User Theme extension 
-  command: gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com
-
+  ansible.builtin.shell:
+    cmd: gnome-shell-extension-tool -e user-theme@gnome-shell-extensions.gcampax.github.com
+           
 - name: Pulling ArcMenu repo
   ansible.builtin.git:
     repo: 'https://gitlab.com/arcmenu/ArcMenu.git'
@@ -20,6 +22,9 @@
   make:
     chdir: /home/{{ main_user }}/Desktop/ArcMenu
     target: install
+
+#- name: Enable ArcMenu extension 
+#  command: gnome-extensions enable arcmenu@arcmenub.com
 
 - name: Remove ArcMenu directory
   ansible.builtin.file:

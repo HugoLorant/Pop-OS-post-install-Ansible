@@ -23,6 +23,7 @@
       - neofetch
       - nodejs
       - npm
+      - ncdu
       - python3
       - python3-venv
       - rsync

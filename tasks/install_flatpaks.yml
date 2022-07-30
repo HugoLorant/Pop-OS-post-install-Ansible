@@ -16,7 +16,7 @@
       - com.discordapp.Discord
       - fr.romainvigier.MetadataCleaner
       - org.libreoffice.LibreOffice
-     # - org.onlyoffice.desktopeditors
+      - org.onlyoffice.desktopeditors
       - org.mozilla.firefox
       - org.kde.krita
     state: present

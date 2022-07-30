@@ -4,14 +4,6 @@
     path: "/home/{{ main_user }}/.bashrc"
     state: absent
 
-- name: Hardlink .bashrc
-  become: yes
-  become_user: "{{ main_user }}"
-  file:
-    src: $PWD/files/conf_files/.bashrc
-    dest: "/home/{{ main_user }}/.bashrc"
-    state: hard
-
 - name: Hardlink .zshrc
   become: yes
   become_user: "{{ main_user }}"

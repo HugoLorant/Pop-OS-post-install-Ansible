@@ -24,13 +24,3 @@
   ansible.builtin.file:
     path: /home/{{ main_user }}/Desktop/Orchis-theme
     state: absent
-
-- name: Set shell theme to Orchis Dark Compact
-  dconf:
-    key: "/org/gnome/shell/extensions/user-theme/name"
-    value: "'Orchis-Dark-Compact'"
-
-- name: Set legacy shell theme to Orchis Dark
-  dconf:
-    key: "org/gnome/desktop/interface/gtk-theme"
-    value: "'Orchis-Dark'"

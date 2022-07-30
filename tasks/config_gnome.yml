@@ -1,0 +1,4 @@
+- name: Add maximise & minimal window button
+  dconf:
+    key: "/org/gnome/desktop/wm/preferences/button-layout"
+    value: "'appmenu:minimize,maximize,close'"

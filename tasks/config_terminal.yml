@@ -1,0 +1,20 @@
+- name: Install powerline fonts
+  become: yes
+  become_user: "{{ root_user }}"
+  package:
+    name:
+      - fonts-powerline
+
+- name: Pulling Synth Shell repo
+  ansible.builtin.git:
+    repo: 'https://github.com/andresgongora/synth-shell.git'
+    dest: /home/{{ main_user }}/Desktop/synth-shell
+
+- name: Chmod +x setup.sh
+  ansible.builtin.file:
+    path: /home/{{ main_user }}/Desktop/synth-shell/setup.sh
+    mode: a+x
+
+- name: Installation script for synth shell_var
+  shell: 
+    cmd: printf 'iunynnn' | /home/{{ main_user }}/Desktop/synth-shell/setup.sh

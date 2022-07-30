@@ -1,0 +1,34 @@
+- name: Add Volian Scar repository 
+  become: yes
+  become_user: "{{ root_user }}"
+  shell:
+    cmd: echo "deb https://deb.volian.org/volian/ scar main" | tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list \
+    
+- name: Add  Volian Scar repository 2
+  become: yes
+  become_user: "{{ root_user }}"
+  shell:
+    cmd: wget -qO - https://deb.volian.org/volian/scar.key |  tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null
+
+
+- name: Add source repository 
+  become: yes
+  become_user: "{{ root_user }}"
+  shell:
+    cmd: echo "deb-src https://deb.volian.org/volian/ scar main" | tee -a /etc/apt/sources.list.d/volian-archive-scar-unstable.list
+
+- name: update repositories
+  become: yes
+  become_user: "{{ root_user }}"
+  apt: 
+    update_cache: yes
+  changed_when: False
+
+
+- name: Install nala package
+  become: yes
+  become_user: "{{ root_user }}"
+  package:
+    name:
+      - nala
+    state: latest
