@@ -31,7 +31,6 @@
       changed_when: False
     - import_tasks: ./tasks/install_nala.yml
     - import_tasks: ./tasks/config_terminal.yml
-    - import_tasks: ./tasks/install_chezmoi.yml
 
   collections:
     - community.general.flatpak
@@ -50,6 +49,7 @@
     - import_tasks: ./tasks/config_icons.yml
     - import_tasks: ./tasks/config_shell.yml
     - import_tasks: ./tasks/config_gnome.yml
+    - import_tasks: ./tasks/install_chezmoi.yml
 
     - include_tasks: ./tasks/install_fish.yml
       when: shell_var == "fish"
