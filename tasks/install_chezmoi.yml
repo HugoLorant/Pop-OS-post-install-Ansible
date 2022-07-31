@@ -1,6 +1,6 @@
 - name: Install chezmoi
   become: yes
-  become_user: "{{ main_user }}"
+  become_user: "{{ root_user }}"
   shell:
     chdir: /
     cmd: sh -c "$(curl -fsLS https://chezmoi.io/get)"

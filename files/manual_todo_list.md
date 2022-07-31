@@ -1,7 +1,7 @@
 # Post ansible things to do
 
 * Change font in terminal to activate the synth shell symbols
-* Change `Switch windows` to alt tab
+* Change `Switch windows` to altµ tab
 * Connect Dropbox Account and fave it in file manager
 * Configure timeshift backups
 * Install Syncs extension on vscodium / Vscode and sync extensions / settings

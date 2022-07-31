@@ -17,7 +17,6 @@
       - fr.romainvigier.MetadataCleaner
       - org.libreoffice.LibreOffice
       - org.onlyoffice.desktopeditors
-      - org.mozilla.firefox
       - org.kde.krita
       - com.dropbox.Client
     state: present

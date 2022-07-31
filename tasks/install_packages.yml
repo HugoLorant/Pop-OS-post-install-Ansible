@@ -32,17 +32,8 @@
       - steam
       - software-properties-common
       - timeshift
+      - thefuck
       - vim
       - virtualbox-qt
       - vlc
     state: latest
-
-
-- name: Remove packages
-  become: yes
-  become_user: "{{ root_user }}"
-  package:
-    name:
-      - libreoffice*
-      - firefox*
-    state: absent
