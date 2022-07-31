@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=sudo systemctl stop bluetooth
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Disable bluetooth
+Name=Disable bluetooth
+Comment[en_US]=disable bluetooth on startup
+Comment=disable bluetooth on startup

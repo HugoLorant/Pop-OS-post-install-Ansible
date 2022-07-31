@@ -18,3 +18,8 @@
 - name: Installation script for synth shell_var
   shell: 
     cmd: printf 'iunynnn' | /home/{{ main_user }}/Desktop/synth-shell/setup.sh
+
+- name: Remove synth shell directory
+  ansible.builtin.file:
+    path: /home/{{ main_user }}/Desktop/synth-shell
+    state: absent

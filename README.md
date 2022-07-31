@@ -1,6 +1,8 @@
-* Git clone this repo
-* cd ./workstation_setup
-* sudo apt install python3-pip
-* sudo pip3 install -Iv 'resolvelib<0.6.0'
-* sudo apt-add-repository ppa:ansible/ansible && sudo apt install ansible -y
-* run `sudo bash ./run.sh`
+# Usage
+
+```bash
+git clone https://github.com/HugoLorant/Pop-OS-post-install-Ansible.git
+cd Pop-OS-post-install-Ansible/
+./pre_playbook.sh
+sudo bash ./run.sh
+```

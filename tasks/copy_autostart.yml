@@ -1,0 +1,21 @@
+- name: Copy autostart conf
+  copy:
+    src: /home/{{ main_user }}/.config/conky/back-to-basic/back-to-basic-startup.sh.desktop
+    dest: /home/{{ main_user }}/.config/autostart
+
+- name: Replace user name in conky autostart conf
+  replace:
+    path: /home/{{ main_user }}/.config/autostart/back-to-basic-startup.sh.desktop
+    regexp: 'USER'
+    replace: '{{ main_user }}'
+
+
+- name: Copy dash to dock COSMIC config to autostart
+  ansible.builtin.copy:
+    src: files/autostart_files/Dash_to_doc_cosmic.desktop
+    dest: /home/{{ main_user }}/.config/autostart
+
+- name: Copy bluetooth config to autostart
+  ansible.builtin.copy:
+    src: files/autostart_files/Bluetooth_disable.desktop
+    dest: /home/{{ main_user }}/.config/autostart

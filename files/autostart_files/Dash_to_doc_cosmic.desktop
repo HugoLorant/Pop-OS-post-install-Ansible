@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=gnome-extensions disable dash-to-dock-cosmic-@halfmexicanhalfamazing@gmail.com & gnome-extensions enable dash-to-dock-cosmic-@halfmexicanhalfamazing@gmail.com
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Autostart dash to doc cosmic
+Name=Autostart dash to doc cosmic
+Comment[en_US]=
+Comment=
