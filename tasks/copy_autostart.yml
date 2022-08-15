@@ -12,10 +12,15 @@
 
 - name: Copy dash to dock COSMIC config to autostart
   ansible.builtin.copy:
-    src: files/autostart_files/Dash_to_doc_cosmic.desktop
+    src: files/autostart_files/Dash_to_dock_cosmic.desktop
     dest: /home/{{ main_user }}/.config/autostart
 
 - name: Copy bluetooth config to autostart
   ansible.builtin.copy:
     src: files/autostart_files/Bluetooth_disable.desktop
+    dest: /home/{{ main_user }}/.config/autostart
+
+- name: Copy Pop shop icon reset  to autostart
+  ansible.builtin.copy:
+    src: files/autostart_files/PopShop_Icon.desktop
     dest: /home/{{ main_user }}/.config/autostart

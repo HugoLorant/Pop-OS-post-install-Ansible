@@ -22,4 +22,4 @@
 - name: Remove synth shell directory
   ansible.builtin.file:
     path: /home/{{ main_user }}/Desktop/synth-shell
-    state: absent
+    state: absent 
