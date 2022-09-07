@@ -30,29 +30,35 @@
       apt:
         upgrade: yes
         update_cache: yes
-      changed_when: False
-    - import_tasks: ./tasks/install_nala.yml
-    - import_tasks: ./tasks/config_terminal.yml
+        force_apt_get: yes
+        allow_downgrade: yes
+      #changed_when: False
+    
 
   collections:
     - community.general.flatpak
 
   tasks:
+    
     - import_tasks: ./tasks/install_setup_packages.yml
     - import_tasks: ./tasks/config_standard_directories.yml
     - import_tasks: ./tasks/install_ansible_collections.yml
     - import_tasks: ./tasks/install_packages.yml
     - import_tasks: ./tasks/install_flatpaks.yml
+    - import_tasks: ./tasks/install_nala.yml
     - import_tasks: ./tasks/install_codium.yml
     - import_tasks: ./tasks/install_terraform.yml 
     #- import_tasks: ./tasks/install_gnome_extensions.yml    # let this task commented
     - import_tasks: ./tasks/config_conky.yml
     - import_tasks: ./tasks/config_icons.yml
+    - import_tasks: ./tasks/config_terminal.yml
     - import_tasks: ./tasks/config_shell.yml
     - import_tasks: ./tasks/config_gnome.yml
     - import_tasks: ./tasks/install_chezmoi.yml
 
     - import_tasks: ./tasks/copy_autostart.yml
+    
+    - import_tasks: ./tasks/config_nautilus.yml
 
     - include_tasks: ./tasks/install_fish.yml
       when: shell_var == "fish"

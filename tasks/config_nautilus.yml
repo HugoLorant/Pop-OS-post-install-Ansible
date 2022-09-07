@@ -1,0 +1,29 @@
+- name: Nautilus Icon View Caption Size extension
+  dconf: 
+    key: "/org/gnome/nautilus/icon-view/captions"
+    value : "['size', 'none', 'none']"
+
+- name: Nautilus preview files
+  become: yes
+  become_user: "{{ root_user }}"
+  apt:
+    name: gnome-sushi 
+
+- name: Nautilus resize images extension
+  become: yes
+  become_user: "{{ root_user }}"
+  apt: 
+    name: 
+      - imagemagick 
+      - nautilus-image-converter
+
+- name: Nautilus open as root extension
+  become: yes
+  become_user: "{{ root_user }}"
+  apt: 
+    name: nautilus-admin
+
+- name: Quit Nautilus
+  command: 
+    cmd: nautilus -q
+  ignore_errors: true
