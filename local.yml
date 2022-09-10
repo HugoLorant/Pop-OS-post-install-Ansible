@@ -68,7 +68,7 @@
     
 
     - import_tasks: ./tasks/config_shell.yml
-    - import tasks: ./tasks/config_terminal.yml
+    - import_tasks: ./tasks/config_terminal.yml
     - import_tasks: ./tasks/config_nautilus.yml
 
     - import_tasks: ./tasks/copy_autostart.yml
