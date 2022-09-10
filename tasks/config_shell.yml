@@ -1,26 +1,41 @@
-- name: Pulling Orchis Shell theme repo
-  ansible.builtin.git:
-    repo: 'https://github.com/vinceliuice/Orchis-theme.git'
-    dest: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme
+- name: gnome | shell settings | add maximise & minimal window button
+  dconf:
+    key: "/org/gnome/desktop/wm/preferences/button-layout"
+    value: "'appmenu:minimize,maximize,close'"
 
-- name: Correcting source directory core.sh
-  replace:
-    path: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme/core.sh
-    regexp: '^REPO_DIR.*$' 
-    replace: 'REPO_DIR=/home/{{ main_user }}/ansible_pop_installation/Orchis-theme'
+- name: gnome | shell settings | show hidden files for gtk
+  dconf:
+    key: "/org/gtk/settings/file-chooser/show-hidden"
+    value: "true"
 
-- name: Correcting source directory install.sh
-  replace:
-    path: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme/install.sh
-    regexp: '^REPO_DIR.*$' 
-    replace: 'REPO_DIR=/home/{{ main_user }}/ansible_pop_installation/Orchis-theme'
+- name: gnome | shell settings | show hidden files for gtk4
+  dconf:
+    key: "/org/gtk/gtk4/settings/file-chooser/show-hidden"
+    value: "true"
 
-- name: Run installation script
-  become: yes
+- name: gnome | shell settings | disable hidpi-daemon
+  dconf:
+    key: "/com/system76/hidpi/enable"
+    value: "false"
+
+- name: gnome | shell settings | touchpad area click method
+  dconf:
+    key: "/org/gnome/desktop/peripherals/touchpad/click-method"
+    value: "'areas'"
+
+- name: gnome | shell settings | show-battery-percentage
+  dconf:
+    key: "/org/gnome/desktop/interface/show-battery-percentage"
+    value: "true"
+
+- name: gnome | shell settings | set Qogir icon theme
   become_user: "{{ main_user }}"
-  ansible.builtin.script: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme/install.sh
+  dconf:
+    key: "/org/gnome/desktop/interface/icon-theme"
+    value: "'Qogir'"
 
-- name: Remove shell theme directory
-  ansible.builtin.file:
-    path: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme
-    state: absent
+- name: gnome | shell settings | set Orchis-Dark shell theme
+  become_user: "{{ main_user }}"
+  dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    value: "'Orchis-Dark'"

@@ -1,4 +1,4 @@
-- name: Download dropbox .deb
+- name: software | dropbox | download .deb
   ansible.builtin.command: >
     curl -sSL
     https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_{{ dropbox_version }}_{{ dropbox_machine_map[ansible_machine] }}.deb
@@ -7,28 +7,28 @@
     creates: "/home/{{ main_user }}/ansible_pop_installation/dropbox_{{ dropbox_version }}_{{ dropbox_machine_map[ansible_machine] }}.deb"
     warn: false
   
-- name: Give executable right
+- name: software | dropbox | give executable right to .deb
   file: 
     path: /home/{{ main_user }}/ansible_pop_installation/dropbox_{{ dropbox_version }}_{{ dropbox_machine_map[ansible_machine] }}.deb
     mode: '755  '
 
-- name: install deb file
+- name: software | dropbox | deb file installation
   become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt:
     deb: /home/{{ main_user }}/ansible_pop_installation/dropbox_{{ dropbox_version }}_{{ dropbox_machine_map[ansible_machine] }}.deb
 
-- name: Install dropbox dependency
+- name: software | dropbox | dropbox dependency installation
   become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt:
     name: python3-gpg
   
-- name: Remove .deb package
+- name: software | dropbox | remove .deb package
   ansible.builtin.file:
     path: /home/{{ main_user }}/ansible_pop_installation/dropbox_{{ dropbox_version }}_{{ dropbox_machine_map[ansible_machine] }}.deb
     state: absent
 
-- name: Message post installation
+- name: software | dropbox | post installation message
   debug:
     msg: "Dropbox installed, launch the app and accept the proprietary daemon"

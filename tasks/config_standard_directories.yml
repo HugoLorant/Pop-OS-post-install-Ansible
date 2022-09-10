@@ -1,9 +1,9 @@
-- name: Check if autostart directory exist
+- name: directories setup | .autostart | check if directory exist
   stat:
     path: /home/{{ main_user }}/.config/autostart
   register: directory_autostart
 
-- name: Create autostart directory if it doesn't exist
+- name: directories setup | .autostart | create directory
   file:
     path: /home/{{ main_user }}/.config/autostart
     state: directory
@@ -11,12 +11,12 @@
   when: not directory_autostart.stat.exists
 
 
-- name: Check if font directory exist
+- name: directories setup | .font | check if directory exist
   stat:
     path: /home/{{ main_user }}/.local/share/fonts
   register: directory_font
 
-- name: Create font directory
+- name: directories setup | .font | create directory
   file:
     path: /home/{{ main_user }}/.local/share/fonts
     state: directory
@@ -24,12 +24,12 @@
   when: not directory_font.stat.exists
 
 
-- name: Check if icons directory exist
+- name: directories setup | .icons | check if directory exist
   stat:
     path: /home/{{ main_user }}/.icons
   register: directory_icons
 
-- name: Create .icons directory if it doesn't exist
+- name: directories setup | .icons | create directory
   file:
     path: /home/{{ main_user }}/.icons
     state: directory
@@ -37,24 +37,24 @@
   when: not directory_icons.stat.exists
 
 
-- name: Check if themes directory exist
+- name: directories setup | .themes | check if directory exist
   stat:
     path: /home/{{ main_user }}/.themes
   register: directory_themes
 
-- name: Create .themes directory if it doesn't exist
+- name: directories setup | .themes | Create directory
   file:
     path: /home/{{ main_user }}/.themes
     state: directory
     mode: '775'
 
 
-- name: Check if ansible pop installation download directory exist
+- name: directories setup | ansible_pop_installation | check if directory exist
   stat:
     path: /home/{{ main_user }}/ansible_pop_installation
   register: directory_pop_ansible
 
-- name: Create directory for downloadable executables if it doesn't exist
+- name: directories setup | ansible_pop_installation | create directory
   file:
     path: /home/{{ main_user }}/ansible_pop_installation
     state: directory

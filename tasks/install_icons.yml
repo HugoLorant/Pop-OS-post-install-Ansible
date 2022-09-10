@@ -1,20 +1,20 @@
-- name: Pulling Qogir icon repo
+- name: gnome | shell icons | pulling Qogir icon repository
   ansible.builtin.git:
     repo: 'https://github.com/vinceliuice/Qogir-icon-theme.git'
     dest: /home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme
 
-- name: Correcting source directory
+- name: gnome | shell icons | correcting source directory
   replace:
     path: /home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme/install.sh
     regexp: '^SRC_DIR.*$' 
     replace: 'SRC_DIR=/home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme'
 
-- name: Run installation script
+- name: gnome | shell icons | run installation script
   become: yes
   become_user: "{{ main_user }}"
   ansible.builtin.script: /home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme/install.sh
 
-- name: Change Pop Shop icon to original
+- name: gnome | shell icons | change Pop Shop icon to original
   become: yes
   become_user: "{{ root_user }}"
   replace:
@@ -22,13 +22,8 @@
     regexp: '^Icon.*$' 
     replace: 'Icon=/usr/share/icons/hicolor/48x48/apps/io.elementary.appcenter.png'
 
-- name: Remove icon directory
+- name: gnome | shell icons | remove icon directory
   ansible.builtin.file:
     path: /home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme
     state: absent
 
-- name: Gnome set Qogir icon theme
-  become_user: "{{ main_user }}"
-  dconf:
-    key: "/org/gnome/desktop/interface/icon-theme"
-    value: "'Qogir'"

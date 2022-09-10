@@ -1,20 +1,15 @@
-- name: Copy conky autostart conf
+- name: gnome | autostart | copy conky configuration
   copy:
     src: /home/{{ main_user }}/.config/conky/back-to-basic/back-to-basic-startup.sh.desktop
     dest: /home/{{ main_user }}/.config/autostart
 
-- name: Replace user name in conky autostart conf
+- name: gnome | autostart | replace username in conky configuration
   replace:
     path: /home/{{ main_user }}/.config/autostart/back-to-basic-startup.sh.desktop
     regexp: 'USER'
     replace: '{{ main_user }}'
 
-- name: Copy dash to dock COSMIC config to autostart
+- name: gnome | autostart | copy dash to dock COSMIC configuration
   ansible.builtin.copy:
     src: files/autostart_files/Dash_to_dock_cosmic.desktop
-    dest: /home/{{ main_user }}/.config/autostart
-
-- name: Copy Pop shop icon reset  to autostart
-  ansible.builtin.copy:
-    src: files/autostart_files/PopShop_Icon.desktop
     dest: /home/{{ main_user }}/.config/autostart

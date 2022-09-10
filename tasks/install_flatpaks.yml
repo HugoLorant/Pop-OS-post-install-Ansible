@@ -1,4 +1,4 @@
-- name: Add the flathub flatpak repository remote to the user installation
+- name: software | packages | add flathub repository remote
   become: yes
   become_user: "{{ main_user }}"
   community.general.flatpak_remote:
@@ -7,7 +7,7 @@
     flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
     method: user
 
-- name: Install user flatpaks
+- name: software | packages | flatpak packages installation
   become: yes
   become_user: "{{ main_user }}"
   community.general.flatpak:
@@ -21,9 +21,8 @@
     state: present
     method: user
 
-- name: update flatpaks
+- name: software | packages | update flatpaks
   become: yes
   become_user: "{{ root_user }}"
-  shell:
-    cmd: flatpak update --noninteractive
+  shell: flatpak update --noninteractive
     

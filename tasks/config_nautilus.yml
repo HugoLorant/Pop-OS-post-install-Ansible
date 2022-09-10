@@ -1,15 +1,15 @@
-- name: Nautilus Icon View Caption Size extension
+- name: gnome | nautilus settings | icon view caption size extension
   dconf: 
     key: "/org/gnome/nautilus/icon-view/captions"
     value : "['size', 'none', 'none']"
 
-- name: Nautilus preview files
+- name: gnome | nautilus settings | preview files
   become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt:
     name: gnome-sushi 
 
-- name: Nautilus resize images extension
+- name: gnome | nautilus settings | resize images extension
   become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt: 
@@ -17,12 +17,12 @@
       - imagemagick 
       - nautilus-image-converter
 
-- name: Nautilus open as root extension
+- name: gnome | nautilus settings | open as root extension
   become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt: 
     name: nautilus-admin
 
-- name: Message post installation
+- name: gnome | nautilus settings | post installation message
   debug:
     msg: "Nautilus extensions installed, close all instances with nautilus -q or with GUI and restart it"

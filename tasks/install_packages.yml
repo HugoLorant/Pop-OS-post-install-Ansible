@@ -1,7 +1,7 @@
-- name: Install packages
+- name: software | packages | apt packages installation
   become: yes
   become_user: "{{ root_user }}"
-  package:
+  apt:
     name:
       - apt-transport-https
       - bat

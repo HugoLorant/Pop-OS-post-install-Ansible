@@ -1,4 +1,4 @@
-- name: Install setup system packages
+- name: system setup | packages | install setup system packages
   become_user: "{{ root_user }}"
   package:
     name:

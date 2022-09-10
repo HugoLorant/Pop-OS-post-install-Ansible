@@ -1,10 +1,9 @@
-- name: Install chezmoi
+- name: software | chezmoi | package installation
   become: yes
   become_user: "{{ root_user }}"
   shell:
     chdir: /
     cmd: sh -c "$(curl -fsLS https://chezmoi.io/get)"
 
-- name: Sync chezmoi dotfiles
-  shell:
-    cmd: /bin/chezmoi init --apply https://github.com/DrPulse/dotfiles.git
+- name: software | chezmoi | sync dotfiles
+  shell: /bin/chezmoi init --apply https://github.com/DrPulse/dotfiles.git

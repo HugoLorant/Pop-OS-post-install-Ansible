@@ -1,19 +1,19 @@
-- name: Add hashicorp apt key
+- name: software | terraform | add apt signing key
   become_user: "{{ root_user }}"
   ansible.builtin.apt_key:
     url: https://apt.releases.hashicorp.com/gpg
     state: present
 
-- name: Add hashicorp apt repo
+- name: software | terraform | add source repository
   become_user: "{{ root_user }}"
   ansible.builtin.apt_repository:
     repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
     state: present
 
-- name: Install terraform package
+- name: software | terraform | package installation
   become: yes
   become_user: "{{ root_user }}"
-  package:
+  apt:
     name:
       - terraform
     state: latest
