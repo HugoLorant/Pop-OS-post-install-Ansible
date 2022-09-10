@@ -56,7 +56,7 @@
     - import_tasks: ./tasks/install_nala.yml
     - import_tasks: ./tasks/install_codium.yml
     - import_tasks: ./tasks/install_terraform.yml 
-    - import_tasks: ./tasks/install_dropbox
+    - import_tasks: ./tasks/install_dropbox.yml
     - import_tasks: ./tasks/install_chezmoi.yml
 
     - import_tasks: ./tasks/install_shell_theme.yml
