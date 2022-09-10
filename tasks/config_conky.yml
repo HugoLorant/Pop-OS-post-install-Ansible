@@ -1,4 +1,4 @@
-- name:software | conky | check if installed
+- name: software | conky | check if installed
   stat:
     path: /home/{{ main_user }}/.config/conky
   register: directory_conky
