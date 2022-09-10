@@ -1,26 +1,37 @@
+- name: gnome | shell theme | read current theme
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    state: read
+  register: gnome_shell_theme
+
 - name: gnome | shell theme | pulling Orchis theme repository
   ansible.builtin.git:
     repo: 'https://github.com/vinceliuice/Orchis-theme.git'
     dest: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme
+  when: '"Orchis-Dark" not in gnome_shell_theme'
 
 - name: gnome | shell theme | correcting source directory core.sh
   replace:
     path: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme/core.sh
     regexp: '^REPO_DIR.*$' 
     replace: 'REPO_DIR=/home/{{ main_user }}/ansible_pop_installation/Orchis-theme'
+  when: '"Orchis-Dark" not in gnome_shell_theme'
 
 - name: gnome | shell theme | correcting source directory install.sh
   replace:
     path: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme/install.sh
     regexp: '^REPO_DIR.*$' 
     replace: 'REPO_DIR=/home/{{ main_user }}/ansible_pop_installation/Orchis-theme'
+  when: '"Orchis-Dark" not in gnome_shell_theme'
 
 - name: gnome | shell theme | run installation script
   become: yes
   become_user: "{{ main_user }}"
   ansible.builtin.script: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme/install.sh
+  when: '"Orchis-Dark" not in gnome_shell_theme'
 
 - name: gnome | shell theme | remove theme directory
   ansible.builtin.file:
     path: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme
     state: absent
+  when: '"Orchis-Dark" not in gnome_shell_theme'

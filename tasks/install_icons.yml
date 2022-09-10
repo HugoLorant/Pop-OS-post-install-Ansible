@@ -1,18 +1,27 @@
+- name: gnome | shell icons | read current icons
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/icon-theme"
+    state: read
+  register: gnome_shell_icons
+
 - name: gnome | shell icons | pulling Qogir icon repository
   ansible.builtin.git:
     repo: 'https://github.com/vinceliuice/Qogir-icon-theme.git'
     dest: /home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme
+  when: '"Qogir" not in gnome_shell_icons'
 
 - name: gnome | shell icons | correcting source directory
   replace:
     path: /home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme/install.sh
     regexp: '^SRC_DIR.*$' 
     replace: 'SRC_DIR=/home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme'
+  when: '"Qogir" not in gnome_shell_icons'
 
 - name: gnome | shell icons | run installation script
   become: yes
   become_user: "{{ main_user }}"
   ansible.builtin.script: /home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme/install.sh
+  when: '"Qogir" not in gnome_shell_icons'
 
 - name: gnome | shell icons | change Pop Shop icon to original
   become: yes
@@ -21,9 +30,10 @@
     path: /usr/share/applications/io.elementary.appcenter.desktop
     regexp: '^Icon.*$' 
     replace: 'Icon=/usr/share/icons/hicolor/48x48/apps/io.elementary.appcenter.png'
+  when: '"Qogir" not in gnome_shell_icons'
 
 - name: gnome | shell icons | remove icon directory
   ansible.builtin.file:
     path: /home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme
     state: absent
-
+  when: '"Qogir" not in gnome_shell_icons'

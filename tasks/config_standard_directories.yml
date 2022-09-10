@@ -47,7 +47,7 @@
     path: /home/{{ main_user }}/.themes
     state: directory
     mode: '775'
-
+  when: not directory_themes.stat.exists
 
 - name: directories setup | ansible_pop_installation | check if directory exist
   stat:

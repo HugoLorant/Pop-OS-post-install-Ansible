@@ -1,5 +1,5 @@
 - name: software | chezmoi | check if installed
-  command: command -v chezmoi
+  shell: command -v chezmoi
   register: chezmoi_package_check
 
 - name: software | chezmoi | package installation
@@ -12,4 +12,4 @@
 
 - name: software | chezmoi | sync dotfiles
   shell: /bin/chezmoi init --apply https://github.com/DrPulse/dotfiles.git
-  when: chezmoi_package_check
+  when: chezmoi_package_check is failed

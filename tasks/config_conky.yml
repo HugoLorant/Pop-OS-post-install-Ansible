@@ -1,3 +1,8 @@
+- name:software | conky | check if installed
+  stat:
+    path: /home/{{ main_user }}/.config/conky
+  register: directory_conky
+
 - name: software | conky | create directory
   become: yes
   become_user: "{{ main_user }}"
@@ -5,25 +10,30 @@
     path: /home/{{ main_user }}/.config/conky
     state: directory
     mode: '775'
+  when: not directory_conky.stat.exists
 
 - name: software | conky | copy config directory
   ansible.builtin.copy:
     src: files/conf_files/back-to-basic
     dest: /home/{{ main_user }}/.config/conky
+  when: not directory_conky.stat.exists
 
 - name: software | conky | copy conky fonts
   ansible.builtin.copy:
     src: /home/{{ main_user }}/.config/conky/back-to-basic/ConkySymbols.ttf
     dest: /home/{{ main_user }}/.local/share/fonts
+  when: not directory_conky.stat.exists
 
 - name: software | conky | replace user name in conf file
   ansible.builtin.replace:
     path: /home/{{ main_user }}/.config/conky/back-to-basic/startup/back-to-basic-startup.sh
     regexp: 'USER'
     replace: '{{ main_user }}'
+  when: not directory_conky.stat.exists
 
 - name: software | conky | add exec right to back-to-basic-startup.sh
   ansible.builtin.file:
     path: /home/{{ main_user }}/.config/conky/back-to-basic/startup/back-to-basic-startup.sh
     mode: '755'
+  when: not directory_conky.stat.exists
 

@@ -1,25 +1,34 @@
+- name: gnome | terminal | check if installed
+  stat:
+    path: /home/{{ main_user }}/.config/synth-shell
+  register: directory_synth-shell
+
 - name: gnome | terminal | install powerline fonts
   become: yes
   become_user: "{{ root_user }}"
   package:
     name:
       - fonts-powerline
+  when: not directory_synth-shell.stat.exists
 
 - name:  gnome | terminal | pulling Synth Shell repo
   ansible.builtin.git:
     repo: 'https://github.com/andresgongora/synth-shell.git'
     dest: /home/{{ main_user }}/ansible_pop_installation/synth-shell
+  when: not directory_synth-shell.stat.exists
 
 - name:  gnome | terminal | give executable right to setup.sh
   ansible.builtin.file:
     path: /home/{{ main_user }}/ansible_pop_installation/synth-shell/setup.sh
     mode: a+x
+  when: not directory_synth-shell.stat.exists
 
 - name:  gnome | terminal | run installation script
-  shell: 
-    cmd: printf 'iunynnn' | /home/{{ main_user }}/ansible_pop_installation/synth-shell/setup.sh
+  shell: printf 'iunynnn' | /home/{{ main_user }}/ansible_pop_installation/synth-shell/setup.sh
+  when: not directory_synth-shell.stat.exists
 
 - name:  gnome | terminal | remove synth shell directory
   ansible.builtin.file:
     path: /home/{{ main_user }}/ansible_pop_installation/synth-shell
     state: absent 
+  when: not directory_synth-shell.stat.exists

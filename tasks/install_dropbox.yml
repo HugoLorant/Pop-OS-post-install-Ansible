@@ -30,7 +30,7 @@
   become_user: "{{ root_user }}"
   ansible.builtin.apt:
     name: python3-gpg
-    when: dropbox_package_check is failed
+  when: dropbox_package_check is failed
 
 - name: software | dropbox | remove .deb package
   ansible.builtin.file:
