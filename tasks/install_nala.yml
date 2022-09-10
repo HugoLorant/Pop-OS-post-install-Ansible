@@ -1,19 +1,32 @@
-- name: software | nala | add source repository 
+- name: software | nala | add repository to sources
   become: yes
   become_user: "{{ root_user }}"
-  shell: echo "deb-src https://deb.volian.org/volian/ scar main" | tee -a /etc/apt/sources.list.d/volian-archive-scar-unstable.list
+  shell: echo "deb https://deb.volian.org/volian/ scar main" | tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list \
+    
+- name: software | nala | add key to trusted repository 
+  become: yes
+  become_user: "{{ root_user }}"
+  shell: wget -qO - https://deb.volian.org/volian/scar.key |  tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null
 
-- name: software | nala | update apt cache
+
+#- name: software | nala | add source repository 
+#  become: yes
+#  become_user: "{{ root_user }}"
+#  shell:
+#    cmd: echo "deb-src https://deb.volian.org/volian/ scar main" | tee -a /etc/apt/sources.list.d/volian-archive-scar-unstable.list
+
+- name: update repositories
   become: yes
   become_user: "{{ root_user }}"
   apt: 
     update_cache: yes
   changed_when: False
 
-- name: software | nala | package installation
+
+- name: Install nala package
   become: yes
   become_user: "{{ root_user }}"
-  apt:
+  package:
     name:
       - nala
     state: latest

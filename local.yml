@@ -33,7 +33,11 @@
     
     - name: pre run | retrieve logname
       local_action: command whoami
-      register: main_user
+      register: whoami
+
+    - name: pre run | set main_user variable
+      set_fact: 
+        main_user: "{{ whoami.stdout }}"
 
     - name: pre run | update & upgrade packages and repositories
       become: yes
@@ -42,7 +46,7 @@
         upgrade: yes
         update_cache: yes
         allow_downgrade: yes
-      #changed_when: False
+        
 
   collections:
     - community.general.flatpak
