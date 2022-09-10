@@ -16,11 +16,11 @@
 - name: Pulling ArcMenu repo
   ansible.builtin.git:
     repo: 'https://gitlab.com/arcmenu/ArcMenu.git'
-    dest: /home/{{ main_user }}/Desktop/ArcMenu
+    dest: /home/{{ main_user }}/ansible_pop_installation/ArcMenu
 
 - name: make install ArcMenu
   make:
-    chdir: /home/{{ main_user }}/Desktop/ArcMenu
+    chdir: /home/{{ main_user }}/ansible_pop_installation/ArcMenu
     target: install
 
 #- name: Enable ArcMenu extension 
@@ -28,5 +28,5 @@
 
 - name: Remove ArcMenu directory
   ansible.builtin.file:
-    path: /home/{{ main_user }}/Desktop/ArcMenu
+    path: /home/{{ main_user }}/ansible_pop_installation/ArcMenu
     state: absent

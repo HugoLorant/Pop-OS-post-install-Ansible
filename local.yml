@@ -11,6 +11,12 @@
     ansible_python_interpreter: "/usr/bin/python3"
     main_user: "{{ main_user }}"
     root_user: root
+    dropbox_version: 2020.03.04
+    dropbox_machine_map:
+      i686: 386
+      i386: 386
+      x86_64: amd64
+      amd64: amd64
     #gnome_user: "{{ root_user }}"
     #gnome_extensions:
     #  - id: 19      # User themes
@@ -33,30 +39,31 @@
         force_apt_get: yes
         allow_downgrade: yes
       #changed_when: False
-    
+
 
   collections:
     - community.general.flatpak
 
   tasks:
     
-    - import_tasks: ./tasks/install_setup_packages.yml
+    #- import_tasks: ./tasks/install_setup_packages.yml
     - import_tasks: ./tasks/config_standard_directories.yml
-    - import_tasks: ./tasks/install_ansible_collections.yml
+    #- import_tasks: ./tasks/install_ansible_collections.yml
     - import_tasks: ./tasks/install_packages.yml
-    - import_tasks: ./tasks/install_flatpaks.yml
-    - import_tasks: ./tasks/install_nala.yml
-    - import_tasks: ./tasks/install_codium.yml
-    - import_tasks: ./tasks/install_terraform.yml 
+    #- import_tasks: ./tasks/install_flatpaks.yml
+    #- import_tasks: ./tasks/install_nala.yml
+    #- import_tasks: ./tasks/install_codium.yml
+    #- import_tasks: ./tasks/install_terraform.yml 
+    #- import_tasks: ./tasks/install_dropbox.yml
     #- import_tasks: ./tasks/install_gnome_extensions.yml    # let this task commented
     - import_tasks: ./tasks/config_conky.yml
     - import_tasks: ./tasks/config_icons.yml
-    - import_tasks: ./tasks/config_terminal.yml
-    - import_tasks: ./tasks/config_shell.yml
-    - import_tasks: ./tasks/config_gnome.yml
-    - import_tasks: ./tasks/install_chezmoi.yml
+    #- import_tasks: ./tasks/config_terminal.yml
+    #- import_tasks: ./tasks/config_shell.yml
+    #- import_tasks: ./tasks/config_gnome.yml
+    #- import_tasks: ./tasks/install_chezmoi.yml
 
-    - import_tasks: ./tasks/copy_autostart.yml
+    #- import_tasks: ./tasks/copy_autostart.yml
     
     - import_tasks: ./tasks/config_nautilus.yml
 
@@ -64,3 +71,16 @@
       when: shell_var == "fish"
     - include_tasks: ./tasks/install_oh_my_zsh.yml
       when: shell_var == "zsh"
+
+  post_tasks:
+    - name: Remove ansible_pop_installation directory
+      file:
+        path: /home/{{ main_user }}/ansible_pop_installation
+        state: absent
+
+    - name: cat file
+      command: /bin/cat files/manual_todo_list.md
+      register: details
+
+    - name: output
+      debug: msg="{{ details.stdout_lines }}"

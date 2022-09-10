@@ -1,26 +1,26 @@
 - name: Pulling Orchis Shell theme repo
   ansible.builtin.git:
     repo: 'https://github.com/vinceliuice/Orchis-theme.git'
-    dest: /home/{{ main_user }}/Desktop/Orchis-theme
+    dest: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme
 
 - name: Correcting source directory core.sh
   replace:
-    path: /home/{{ main_user }}/Desktop/Orchis-theme/core.sh
+    path: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme/core.sh
     regexp: '^REPO_DIR.*$' 
-    replace: 'REPO_DIR=/home/{{ main_user }}/Desktop/Orchis-theme'
+    replace: 'REPO_DIR=/home/{{ main_user }}/ansible_pop_installation/Orchis-theme'
 
 - name: Correcting source directory install.sh
   replace:
-    path: /home/{{ main_user }}/Desktop/Orchis-theme/install.sh
+    path: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme/install.sh
     regexp: '^REPO_DIR.*$' 
-    replace: 'REPO_DIR=/home/{{ main_user }}/Desktop/Orchis-theme'
+    replace: 'REPO_DIR=/home/{{ main_user }}/ansible_pop_installation/Orchis-theme'
 
 - name: Run installation script
   become: yes
   become_user: "{{ main_user }}"
-  ansible.builtin.script: /home/{{ main_user }}/Desktop/Orchis-theme/install.sh
+  ansible.builtin.script: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme/install.sh
 
 - name: Remove shell theme directory
   ansible.builtin.file:
-    path: /home/{{ main_user }}/Desktop/Orchis-theme
+    path: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme
     state: absent

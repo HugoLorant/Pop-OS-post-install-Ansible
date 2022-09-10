@@ -8,18 +8,18 @@
 - name: Pulling Synth Shell repo
   ansible.builtin.git:
     repo: 'https://github.com/andresgongora/synth-shell.git'
-    dest: /home/{{ main_user }}/Desktop/synth-shell
+    dest: /home/{{ main_user }}/ansible_pop_installation/synth-shell
 
 - name: Chmod +x setup.sh
   ansible.builtin.file:
-    path: /home/{{ main_user }}/Desktop/synth-shell/setup.sh
+    path: /home/{{ main_user }}/ansible_pop_installation/synth-shell/setup.sh
     mode: a+x
 
 - name: Installation script for synth shell_var
   shell: 
-    cmd: printf 'iunynnn' | /home/{{ main_user }}/Desktop/synth-shell/setup.sh
+    cmd: printf 'iunynnn' | /home/{{ main_user }}/ansible_pop_installation/synth-shell/setup.sh
 
 - name: Remove synth shell directory
   ansible.builtin.file:
-    path: /home/{{ main_user }}/Desktop/synth-shell
+    path: /home/{{ main_user }}/ansible_pop_installation/synth-shell
     state: absent 

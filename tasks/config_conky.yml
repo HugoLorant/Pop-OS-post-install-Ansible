@@ -25,6 +25,6 @@
 
 - name: Give executable right to back-to-basic-startup.sh
   ansible.builtin.file:
-    path: //home/{{ main_user }}/.config/conky/back-to-basic/startup/back-to-basic-startup.sh
+    path: /home/{{ main_user }}/.config/conky/back-to-basic/startup/back-to-basic-startup.sh
     mode: '755'
 

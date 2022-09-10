@@ -1,31 +1,62 @@
-- name: Create autostart directory
-  become: yes
-  become_user: "{{ main_user }}"
-  ansible.builtin.file:
+- name: Check if autostart directory exist
+  stat:
+    path: /home/{{ main_user }}/.config/autostart
+  register: directory_autostart
+
+- name: Create autostart directory if it doesn't exist
+  file:
     path: /home/{{ main_user }}/.config/autostart
     state: directory
     mode: '775'
+  when: not directory_autostart.stat.exists
+
+
+- name: Check if font directory exist
+  stat:
+    path: /home/{{ main_user }}/.local/share/fonts
+  register: directory_font
 
 - name: Create font directory
-  become: yes
-  become_user: "{{ main_user }}"
-  ansible.builtin.file:
+  file:
     path: /home/{{ main_user }}/.local/share/fonts
     state: directory
     mode: '775'
+  when: not directory_font.stat.exists
 
-- name: Create .icons directory
-  become: yes
-  become_user: "{{ main_user }}"
-  ansible.builtin.file:
+
+- name: Check if icons directory exist
+  stat:
+    path: /home/{{ main_user }}/.icons
+  register: directory_icons
+
+- name: Create .icons directory if it doesn't exist
+  file:
     path: /home/{{ main_user }}/.icons
     state: directory
     mode: '775'
+  when: not directory_icons.stat.exists
 
-- name: Create .themes directory
-  become: yes
-  become_user: "{{ main_user }}"
-  ansible.builtin.file:
+
+- name: Check if themes directory exist
+  stat:
+    path: /home/{{ main_user }}/.themes
+  register: directory_themes
+
+- name: Create .themes directory if it doesn't exist
+  file:
     path: /home/{{ main_user }}/.themes
     state: directory
     mode: '775'
+
+
+- name: Check if ansible pop installation download directory exist
+  stat:
+    path: /home/{{ main_user }}/ansible_pop_installation
+  register: directory_pop_ansible
+
+- name: Create directory for downloadable executables if it doesn't exist
+  file:
+    path: /home/{{ main_user }}/ansible_pop_installation
+    state: directory
+    mode: '775'
+  when: not directory_pop_ansible.stat.exists

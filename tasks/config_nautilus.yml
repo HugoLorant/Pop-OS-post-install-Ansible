@@ -6,13 +6,13 @@
 - name: Nautilus preview files
   become: yes
   become_user: "{{ root_user }}"
-  apt:
+  ansible.builtin.apt:
     name: gnome-sushi 
 
 - name: Nautilus resize images extension
   become: yes
   become_user: "{{ root_user }}"
-  apt: 
+  ansible.builtin.apt: 
     name: 
       - imagemagick 
       - nautilus-image-converter
@@ -20,10 +20,9 @@
 - name: Nautilus open as root extension
   become: yes
   become_user: "{{ root_user }}"
-  apt: 
+  ansible.builtin.apt: 
     name: nautilus-admin
 
-- name: Quit Nautilus
-  command: 
-    cmd: nautilus -q
-  ignore_errors: true
+- name: Message post installation
+  debug:
+    msg: "Nautilus extensions installed, close all instances with nautilus -q or with GUI and restart it"

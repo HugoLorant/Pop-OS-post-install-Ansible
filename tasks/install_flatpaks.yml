@@ -18,6 +18,12 @@
       - org.libreoffice.LibreOffice
       - org.onlyoffice.desktopeditors
       - org.kde.krita
-      - com.dropbox.Client
     state: present
     method: user
+
+- name: update flatpaks
+  become: yes
+  become_user: "{{ root_user }}"
+  shell:
+    cmd: flatpak update --noninteractive
+    
