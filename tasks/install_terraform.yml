@@ -1,14 +1,22 @@
+- name: software | terraform | check if installed
+  command: dpkg-query -l terraform
+  register: terraform_package_check
+
 - name: software | terraform | add apt signing key
+  become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt_key:
     url: https://apt.releases.hashicorp.com/gpg
     state: present
+  when: terraform_package_check is failed
 
 - name: software | terraform | add source repository
+  become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt_repository:
     repo: deb [arch=amd64] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main
     state: present
+  when: terraform_package_check is failed
 
 - name: software | terraform | package installation
   become: yes
@@ -17,3 +25,4 @@
     name:
       - terraform
     state: latest
+  when: terraform_package_check is failed

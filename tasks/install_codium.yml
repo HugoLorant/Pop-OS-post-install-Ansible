@@ -1,30 +1,39 @@
-- name: software | vscodium | get url
+- name: software | codium | check if installed
+  command: dpkg-query -l codium
+  register: codium_package_check
+
+- name: software | codium | get url
   get_url:
     url: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
     dest: /home/{{ main_user }}/ansible_pop_installation
+  when: codium_package_check is failed
 
-- name: software | vscodium | add apt signing key
+- name: software | codium | add apt signing key
   become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt_key:
     file: /home/{{ main_user }}/ansible_pop_installation/pub.gpg
+  when: codium_package_check is failed
 
-- name: software | vscodium | add source repository
+- name: software | codium | add source repository
   become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt_repository:
     repo: deb https://download.vscodium.com/debs vscodium main
     update_cache: yes 
-    
-- name: software | vscodium | remove bgp key
+  when: codium_package_check is failed
+
+- name: software | codium | remove bgp key
   ansible.builtin.file:
     path: /home/{{ main_user }}/ansible_pop_installation/pub.gpg
     state: absent
+  when: codium_package_check is failed
 
-- name: software | vscodium | package installation
+- name: software | codium | package installation
   become: yes
   become_user: "{{ root_user }}"
   apt:
     name:
       - codium
     state: latest
+  when: codium_package_check is failed

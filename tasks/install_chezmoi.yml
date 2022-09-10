@@ -1,9 +1,15 @@
+- name: software | chezmoi | check if installed
+  command: command -v chezmoi
+  register: chezmoi_package_check
+
 - name: software | chezmoi | package installation
   become: yes
   become_user: "{{ root_user }}"
   shell:
     chdir: /
     cmd: sh -c "$(curl -fsLS https://chezmoi.io/get)"
+  when: chezmoi_package_check is failed
 
 - name: software | chezmoi | sync dotfiles
   shell: /bin/chezmoi init --apply https://github.com/DrPulse/dotfiles.git
+  when: chezmoi_package_check

@@ -1,13 +1,18 @@
+- name: software | nala | check if installed
+  command: dpkg-query -l nala
+  register: nala_package_check
+
 - name: software | nala | add repository to sources
   become: yes
   become_user: "{{ root_user }}"
   shell: echo "deb https://deb.volian.org/volian/ scar main" | tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list \
-    
+  when: nala_package_check is failed
+
 - name: software | nala | add key to trusted repository 
   become: yes
   become_user: "{{ root_user }}"
   shell: wget -qO - https://deb.volian.org/volian/scar.key |  tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null
-
+  when: nala_package_check is failed
 
 #- name: software | nala | add source repository 
 #  become: yes
@@ -21,7 +26,7 @@
   apt: 
     update_cache: yes
   changed_when: False
-
+  when: nala_package_check is failed
 
 - name: Install nala package
   become: yes
@@ -30,3 +35,4 @@
     name:
       - nala
     state: latest
+  when: nala_package_check is failed
