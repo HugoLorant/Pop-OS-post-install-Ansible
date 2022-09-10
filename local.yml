@@ -9,7 +9,7 @@
   
   vars:
     ansible_python_interpreter: "/usr/bin/python3"
-    main_user: "{{ main_user }}"
+   
     root_user: root
     dropbox_version: 2020.03.04
     dropbox_machine_map:
@@ -27,16 +27,18 @@
     #    enable: yes
     #  - id: 517     # Caffeine
     #    enable: yes
-  become: yes
-  become_user: "{{ main_user }}"
+
   pre_tasks:
+    - name: export logname to user var
+      local_action: command whoami
+      register: main_user
+
     - name: update repositories
       become: yes
       become_user: "{{ root_user }}"
       apt:
         upgrade: yes
         update_cache: yes
-        force_apt_get: yes
         allow_downgrade: yes
       #changed_when: False
 
