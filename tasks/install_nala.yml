@@ -21,7 +21,7 @@
 #  shell:
 #    cmd: echo "deb-src https://deb.volian.org/volian/ scar main" | tee -a /etc/apt/sources.list.d/volian-archive-scar-unstable.list
 
-- name: update repositories
+- name: software | nala | update repositories
   become: yes
   become_user: "{{ root_user }}"
   apt: 
@@ -29,7 +29,7 @@
   changed_when: False
   when: nala_package_check is failed
 
-- name: Install nala package
+- name: software | nala | package installation
   become: yes
   become_user: "{{ root_user }}"
   package:
