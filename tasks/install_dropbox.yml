@@ -1,8 +1,8 @@
 - name: software | dropbox | check if installed
   command: dpkg-query -l dropbox
   register: dropbox_package_check
-  failed_when: '"Command dpkg not found" in dropbox_package_check.stdout'
-
+  ignore_errors: yes
+  
 - name: software | dropbox | download .deb
   ansible.builtin.command: >
     curl -sSL

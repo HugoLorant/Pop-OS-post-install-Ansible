@@ -1,8 +1,8 @@
 - name: software | codium | check if installed
   command: dpkg-query -l codium
   register: codium_package_check
-  failed_when: '"Command dpkg not found" in codium_package_check.stdout'
-
+  ignore_errors: yes
+  
 - name: software | codium | get url
   get_url:
     url: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg

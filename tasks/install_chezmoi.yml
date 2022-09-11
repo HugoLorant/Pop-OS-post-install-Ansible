@@ -1,7 +1,7 @@
 - name: software | chezmoi | check if installed
   shell: command -v chezmoi
   register: chezmoi_package_check
-  failed_when: '"Command command not found" in chezmoi_package_check.stdout'
+  ignore_errors: yes
 
 - name: software | chezmoi | package installation
   become: yes
