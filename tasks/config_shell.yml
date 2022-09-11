@@ -38,7 +38,8 @@
   become_user: "{{ main_user }}"
   dconf:
     key: "/org/gnome/desktop/interface/icon-theme"
-    value: "{{ shell_icons }}" not in gnome_shell_icons and "{{ shell_icons }}" == "Qogir"
+    value: "'Qogir'"
+  when: "{{ shell_icons }}" not in gnome_shell_icons and "{{ shell_icons }}" == "Qogir"
 
 - name: gnome | shell settings | read current theme
   community.general.dconf:
