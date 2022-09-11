@@ -28,11 +28,17 @@
     key: "/org/gnome/desktop/interface/show-battery-percentage"
     value: "true"
 
-- name: gnome | shell settings | set Qogir icon theme
+- name: gnome | shell settings | read current icons
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/icon-theme"
+    state: read
+  register: gnome_shell_icons
+
+- name: gnome | shell settings | set qogir icon theme
   become_user: "{{ main_user }}"
   dconf:
     key: "/org/gnome/desktop/interface/icon-theme"
-    value: "'Qogir'"
+    value: "{{ shell_icons }}" not in gnome_shell_icons and "{{ shell_icons }}" == "Qogir"
 
 - name: gnome | shell settings | read current theme
   community.general.dconf:
@@ -40,7 +46,7 @@
     state: read
   register: gnome_shell_theme
 
-- name: gnome | shell settings | set Orchis-Dark shell theme
+- name: gnome | shell settings | set orchis-dark shell theme
   become_user: "{{ main_user }}"
   dconf:
     key: "/org/gnome/desktop/interface/gtk-theme"

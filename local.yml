@@ -19,7 +19,7 @@
       x86_64: amd64
       amd64: amd64
     shell_theme: Orchis-Dark
-    shell_icon: Qogir
+    shell_icons: Qogir
     #gnome_user: "{{ root_user }}"
     #gnome_extensions:
     #  - id: 19      # User themes
