@@ -1,7 +1,7 @@
 - name: software | codium | check if installed
   command: dpkg-query -l codium
   register: codium_package_check
-  failed_when: 'Command "dpkg" not found in codium_package_check.stdout'
+  failed_when: '"Command dpkg not found" in codium_package_check.stdout'
 
 - name: software | codium | get url
   get_url:

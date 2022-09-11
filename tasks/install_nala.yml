@@ -1,7 +1,7 @@
 - name: software | nala | check if installed
   command: dpkg-query -l nala
   register: nala_package_check
-  failed_when: 'Command "dpkg" not found in nala_package_check.stdout'
+  failed_when: '"Command dpkg not found" in nala_package_check.stdout'
 
 - name: software | nala | add repository to sources
   become: yes
