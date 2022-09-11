@@ -1,15 +1,28 @@
-- name: gnome | autostart | copy conky configuration
+- name: gnome | autostart conky | check if .desktop exists
+  stat:
+    path: /home/{{ main_user }}/.config/autostart/back-to-basic-startup.sh.desktop
+  register: file_autostart_conky
+
+- name: gnome | autostart conky | copy conky configuration
   copy:
     src: /home/{{ main_user }}/.config/conky/back-to-basic/back-to-basic-startup.sh.desktop
     dest: /home/{{ main_user }}/.config/autostart
+  when: not file_autostart_conky.stat.exists
 
-- name: gnome | autostart | replace username in conky configuration
+- name: gnome | autostart conky | replace username in conky configuration
   replace:
     path: /home/{{ main_user }}/.config/autostart/back-to-basic-startup.sh.desktop
     regexp: 'USER'
     replace: '{{ main_user }}'
+  when: not file_autostart_conky.stat.exists
+
+- name: gnome | autostart dash to dock COSMIC | check if .desktop exists
+  stat:
+    path: /home/{{ main_user }}/.config/autostart/Dash_to_dock_cosmic.desktop
+  register: file_autostart_dash_to_dock_cosmic
 
 - name: gnome | autostart | copy dash to dock COSMIC configuration
   ansible.builtin.copy:
     src: files/autostart_files/Dash_to_dock_cosmic.desktop
     dest: /home/{{ main_user }}/.config/autostart
+  when: not file_autostart_dash_to_dock_cosmic.stat.exists

@@ -11,7 +11,7 @@
       - fonts-powerline
   when: not directory_synth_shell.stat.exists
 
-- name:  gnome | terminal | pulling Synth Shell repo
+- name:  gnome | terminal | pulling synth-shell repo
   ansible.builtin.git:
     repo: 'https://github.com/andresgongora/synth-shell.git'
     dest: /home/{{ main_user }}/ansible_pop_installation/synth-shell

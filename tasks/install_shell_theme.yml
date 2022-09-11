@@ -4,7 +4,7 @@
     state: read
   register: gnome_shell_theme
 
-- name: gnome | shell theme | pulling Orchis theme repository
+- name: gnome | shell theme | pulling orchis theme repository
   ansible.builtin.git:
     repo: 'https://github.com/vinceliuice/Orchis-theme.git'
     dest: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme

@@ -11,6 +11,7 @@
   vars:
     ansible_python_interpreter: "/usr/bin/python3"
     root_user: root
+    main_user: "{{ lookup('env', 'USER') }}"
     dropbox_version: 2020.03.04
     dropbox_machine_map:
       i686: 386
@@ -30,15 +31,6 @@
 
   pre_tasks:
     - import_tasks: ./tasks/install_ansible_collections.yml
-    
-    - name: pre run | retrieve logname
-      local_action: command whoami
-      register: whoami
-
-    - name: pre run | set main_user variable
-      set_fact: 
-        main_user: "{{ whoami.stdout }}"
-
     - name: pre run | update & upgrade packages and repositories
       become: yes
       become_user: "{{ root_user }}"
@@ -68,15 +60,13 @@
     - import_tasks: ./tasks/install_icons.yml
     #- import_tasks: ./tasks/install_gnome_extensions.yml    # let this task commented
     
-    - import_tasks: ./tasks/config_conky.yml
-    
+    - import_tasks: ./tasks/config_conky.yml  
 
     - import_tasks: ./tasks/config_shell.yml
     - import_tasks: ./tasks/config_terminal.yml
     - import_tasks: ./tasks/config_nautilus.yml
 
     - import_tasks: ./tasks/copy_autostart.yml
-
 
 
     - include_tasks: ./tasks/install_fish.yml

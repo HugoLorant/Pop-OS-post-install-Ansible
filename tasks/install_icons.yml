@@ -4,7 +4,7 @@
     state: read
   register: gnome_shell_icons
 
-- name: gnome | shell icons | pulling Qogir icon repository
+- name: gnome | shell icons | pulling qogir icon repository
   ansible.builtin.git:
     repo: 'https://github.com/vinceliuice/Qogir-icon-theme.git'
     dest: /home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme
@@ -23,7 +23,7 @@
   ansible.builtin.script: /home/{{ main_user }}/ansible_pop_installation/Qogir-icon-theme/install.sh
   when: '"Qogir" not in gnome_shell_icons.value'
 
-- name: gnome | shell icons | change Pop Shop icon to original
+- name: gnome | shell icons | change pop shop icon to original
   become: yes
   become_user: "{{ root_user }}"
   replace:

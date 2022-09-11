@@ -3,11 +3,22 @@
     key: "/org/gnome/nautilus/icon-view/captions"
     value : "['size', 'none', 'none']"
 
+
+- name: gnome | nautilus settings | check if preview files installed
+  command: dpkg-query -l gnome-sushi 
+  register: preview_files_package_check
+
 - name: gnome | nautilus settings | preview files
   become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt:
     name: gnome-sushi 
+  when: preview_files_package_check is failed
+
+
+- name: gnome | nautilus settings | check if resize images installed
+  command: dpkg-query -l nautilus-image-converter
+  register: resize_images_package_check
 
 - name: gnome | nautilus settings | resize images extension
   become: yes
@@ -16,13 +27,21 @@
     name: 
       - imagemagick 
       - nautilus-image-converter
+  when: resize_images_package_check is failed
+
+
+- name: gnome | nautilus settings | check if open as root installed
+  command: dpkg-query -l nautilus-admin
+  register: open_as_root_package_check
 
 - name: gnome | nautilus settings | open as root extension
   become: yes
   become_user: "{{ root_user }}"
   ansible.builtin.apt: 
     name: nautilus-admin
+  when: open_as_root_package_check is failed
 
 - name: gnome | nautilus settings | post installation message
   debug:
     msg: "Nautilus extensions installed, close all instances with nautilus -q or with GUI and restart it"
+  when: preview_files_package_check is failed or resize_images_package_check is failed or open_as_root_package_check is failed
