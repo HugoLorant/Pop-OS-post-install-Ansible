@@ -7,6 +7,7 @@
 - name: gnome | nautilus settings | check if preview files installed
   command: dpkg-query -l gnome-sushi 
   register: preview_files_package_check
+  failed_when: '"Command dpkg not found" in preview_files_package_check.stdout'
 
 - name: gnome | nautilus settings | preview files
   become: yes
@@ -19,6 +20,7 @@
 - name: gnome | nautilus settings | check if resize images installed
   command: dpkg-query -l nautilus-image-converter
   register: resize_images_package_check
+  failed_when: '"Command dpkg not found" in resize_images_package_check.stdout'
 
 - name: gnome | nautilus settings | resize images extension
   become: yes
@@ -33,6 +35,7 @@
 - name: gnome | nautilus settings | check if open as root installed
   command: dpkg-query -l nautilus-admin
   register: open_as_root_package_check
+  failed_when: '"Command dpkg not found" in open_as_root_package_check.stdout'
 
 - name: gnome | nautilus settings | open as root extension
   become: yes
