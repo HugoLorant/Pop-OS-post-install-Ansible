@@ -26,6 +26,7 @@
 - name: gnome | shell theme | run installation script
   become: yes
   become_user: "{{ main_user }}"
+  ansible.builtin.script: /home/{{ main_user }}/ansible_pop_installation/Orchis-theme/install.sh
   when: 'not directory_orchis_dark.stat.exists and "{{ shell_theme }}" == "Orchis-Dark"'
 
 - name: gnome | shell theme | remove theme directory
