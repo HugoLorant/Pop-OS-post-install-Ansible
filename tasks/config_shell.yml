@@ -34,8 +34,15 @@
     key: "/org/gnome/desktop/interface/icon-theme"
     value: "'Qogir'"
 
+- name: gnome | shell settings | read current theme
+  community.general.dconf:
+    key: "/org/gnome/desktop/interface/gtk-theme"
+    state: read
+  register: gnome_shell_theme
+
 - name: gnome | shell settings | set Orchis-Dark shell theme
   become_user: "{{ main_user }}"
   dconf:
     key: "/org/gnome/desktop/interface/gtk-theme"
     value: "'Orchis-Dark'"
+  when: "{{ shell_theme }}" not in gnome_shell_theme and "{{ shell_theme }}" == "Orchis-Dark"
